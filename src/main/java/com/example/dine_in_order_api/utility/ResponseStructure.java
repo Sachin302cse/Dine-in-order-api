@@ -10,19 +10,19 @@ import org.springframework.http.HttpStatus;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReponseStructure<T> {
+public class ResponseStructure<T> {
 
     private int status;
     private String message;
     private T data;
 
-    public static <T> ReponseStructure<T> create(HttpStatus status, String message, T data){
-        ReponseStructure<T> reponse = new ReponseStructure();
-        reponse.status= status.value();
-        reponse.message=message;
-        reponse.data=data;
+    public static <T> ResponseStructure<T> create(HttpStatus status, String message, T data){
+        ResponseStructure<T> response = new ResponseStructure();
+        response.status= status.value();
+        response.message=message;
+        response.data=data;
 
-        return reponse;
+        return response;
     }
 
 }

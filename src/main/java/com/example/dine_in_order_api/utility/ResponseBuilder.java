@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 
 public class ResponseBuilder {
 
-    public static <T> ResponseEntity<ReponseStructure<T>> success(HttpStatus status ,String message , T data){
+    public static <T> ResponseEntity<ResponseStructure<T>> success(HttpStatus status ,String message , T data){
 
-                ReponseStructure<T> structure = ReponseStructure.<T>builder()
+                ResponseStructure<T> structure = ResponseStructure.<T>builder()
                 .status(status.value())
                 .message(message)
                 .data(data)
@@ -21,9 +21,9 @@ public class ResponseBuilder {
 
     }
 
-    public static <T> ResponseEntity<ReponseStructure<T>> success(HttpStatus status, HttpHeaders header, String message , T data){
+    public static <T> ResponseEntity<ResponseStructure<T>> success(HttpStatus status, HttpHeaders header, String message , T data){
 
-        ReponseStructure<T> structure = ReponseStructure.<T>builder()
+        ResponseStructure<T> structure = ResponseStructure.<T>builder()
                 .status(status.value())
                 .message(message)
                 .data(data)
@@ -35,4 +35,16 @@ public class ResponseBuilder {
 
     }
 
+    public static ResponseEntity<SimpleErrorStructure> error(HttpStatus httpStatus, String message) {
+
+        SimpleErrorStructure error = SimpleErrorStructure.builder()
+                .type(httpStatus.name())
+                .message(message)
+                .status(httpStatus.value())
+                .build();
+
+        return ResponseEntity.status(httpStatus)
+                .body(error);
+
+    }
 }
