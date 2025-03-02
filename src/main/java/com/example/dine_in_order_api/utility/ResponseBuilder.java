@@ -1,10 +1,11 @@
 package com.example.dine_in_order_api.utility;
 
-import com.sun.net.httpserver.Headers;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public class ResponseBuilder {
 
@@ -46,5 +47,17 @@ public class ResponseBuilder {
         return ResponseEntity.status(httpStatus)
                 .body(error);
 
+    }
+
+    public static ResponseEntity<FieldErrorResponse> error(HttpStatus status , String message, List<FieldErrorResponse.CustomFieldError> errors)
+    {
+        FieldErrorResponse error = FieldErrorResponse.builder()
+                .type(status.name())
+                .message(message)
+                .errors(errors)
+                .build();
+
+        return ResponseEntity.status(status)
+                .body(error);
     }
 }
